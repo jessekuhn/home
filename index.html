@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>[YOUR NAME] — Personal Homepage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --bg: #0d0d0b;
+    --bg2: #141412;
+    --fg: #ede9e0;
+    --fg-muted: #7a7770;
+    --accent: oklch(0.74 0.11 72);
+    --rule: #2a2a26;
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+  @media (max-width: 700px) { .container { padding: 0 24px; } }
+
+  hr.rule { border: none; border-top: 1px solid var(--rule); }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 24px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    mix-blend-mode: normal;
+    background: linear-gradient(to bottom, rgba(13,13,11,0.95) 0%, transparent 100%);
+    backdrop-filter: blur(0px);
+  }
+  nav .logo {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    color: var(--fg);
+    text-decoration: none;
+  }
+  nav ul { list-style: none; display: flex; gap: 40px; }
+  nav ul a {
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  nav ul a:hover { color: var(--fg); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding-bottom: 80px;
+    padding-top: 120px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #hero .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.3s forwards;
+  }
+
+  #hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(72px, 11vw, 160px);
+    font-weight: 300;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.5s forwards;
+  }
+  #hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  #hero .hero-sub {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-top: 56px;
+    gap: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+  #hero .hero-desc {
+    max-width: 440px;
+    font-size: 1.05rem;
+    color: var(--fg-muted);
+    line-height: 1.8;
+  }
+  #hero .hero-links {
+    display: flex; gap: 24px; flex-shrink: 0;
+  }
+  #hero .hero-links a {
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  #hero .hero-links a:hover { color: var(--fg); border-color: var(--fg-muted); }
+
+  #hero .scroll-hint {
+    position: absolute; bottom: 80px; right: 48px;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    opacity: 0;
+    animation: fadeIn 1s 1.4s forwards;
+  }
+  #hero .scroll-hint span {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--fg-muted); writing-mode: vertical-rl;
+  }
+  #hero .scroll-hint .line {
+    width: 1px; height: 60px; background: var(--rule);
+    position: relative; overflow: hidden;
+  }
+  #hero .scroll-hint .line::after {
+    content: ''; position: absolute; top: -100%; left: 0; width: 100%; height: 100%;
+    background: var(--accent);
+    animation: lineDown 2s 1.8s infinite;
+  }
+
+  /* ── ABOUT ── */
+  #about { padding: 120px 0; }
+  #about .about-grid {
+    display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: start;
+  }
+  #about .section-label {
+    font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--fg-muted);
+    padding-top: 8px;
+  }
+  #about .about-text h2 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 4vw, 54px);
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 32px;
+  }
+  #about .about-text h2 em { font-style: italic; color: var(--accent); }
+  #about .about-text p {
+    font-size: 1rem; color: var(--fg-muted); line-height: 1.9;
+    margin-bottom: 16px;
+  }
+  #about .chips {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px;
+  }
+  #about .chip {
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    border: 1px solid var(--rule); border-radius: 2px;
+    padding: 5px 14px; color: var(--fg-muted);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  #about .chip:hover { border-color: var(--accent); color: var(--fg); }
+
+  /* ── EXPERIENCE ── */
+  #experience { padding: 100px 0; }
+  .section-header {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 64px;
+  }
+  .section-header h2 {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 3.5vw, 48px);
+    font-weight: 300;
+  }
+  .section-header .count {
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--fg-muted);
+  }
+
+  .timeline { position: relative; }
+  .timeline-item {
+    display: grid; grid-template-columns: 200px 1fr; gap: 48px;
+    padding: 40px 0;
+    border-top: 1px solid var(--rule);
+    transition: border-color 0.3s;
+    cursor: default;
+  }
+  .timeline-item:hover { border-color: var(--accent); }
+  .timeline-left .period {
+    font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--fg-muted); margin-bottom: 6px;
+  }
+  .timeline-left .company {
+    font-family: var(--font-display); font-size: 1.1rem;
+    color: var(--fg);
+  }
+  .timeline-right .role {
+    font-family: var(--font-display); font-size: 1.5rem; font-weight: 300;
+    margin-bottom: 12px;
+  }
+  .timeline-right .desc {
+    font-size: 0.92rem; color: var(--fg-muted); line-height: 1.8;
+    max-width: 560px;
+  }
+  .timeline-right .tags {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px;
+  }
+  .timeline-right .tag {
+    font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); opacity: 0.8;
+  }
+
+  /* ── PROJECTS ── */
+  #projects { padding: 100px 0; }
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1px; margin-top: 0; background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+  .project-card {
+    background: var(--bg);
+    padding: 40px;
+    display: flex; flex-direction: column; gap: 16px;
+    transition: background 0.3s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--accent); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-card:hover { background: var(--bg2); }
+  .project-card .num {
+    font-size: 0.65rem; letter-spacing: 0.2em; color: var(--fg-muted);
+  }
+  .project-card h3 {
+    font-family: var(--font-display); font-size: 1.4rem; font-weight: 400;
+    line-height: 1.3;
+  }
+  .project-card p {
+    font-size: 0.88rem; color: var(--fg-muted); line-height: 1.8;
+    flex: 1;
+  }
+  .project-card .proj-footer {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 8px;
+  }
+  .project-card .proj-type {
+    font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); opacity: 0.7;
+  }
+  .project-card .proj-arrow {
+    font-size: 1.1rem; color: var(--fg-muted);
+    transition: transform 0.2s, color 0.2s;
+  }
+  .project-card:hover .proj-arrow { transform: translate(4px, -4px); color: var(--fg); }
+
+  /* ── SKILLS ── */
+  #skills { padding: 100px 0; }
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 64px;
+    margin-top: 64px;
+  }
+  @media (max-width: 800px) { .skills-grid { grid-template-columns: 1fr 1fr; } }
+  .skill-group h4 {
+    font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 20px;
+  }
+  .skill-group ul { list-style: none; }
+  .skill-group li {
+    font-size: 0.95rem; color: var(--fg-muted);
+    padding: 8px 0; border-bottom: 1px solid var(--rule);
+    transition: color 0.2s;
+  }
+  .skill-group li:hover { color: var(--fg); }
+
+  /* ── INTERESTS ── */
+  #interests { padding: 80px 0; }
+  .interests-row {
+    display: flex; gap: 0; border: 1px solid var(--rule);
+    overflow: hidden; margin-top: 64px;
+  }
+  .interest-item {
+    flex: 1; padding: 40px 32px;
+    border-right: 1px solid var(--rule);
+    transition: background 0.3s;
+  }
+  .interest-item:last-child { border-right: none; }
+  .interest-item:hover { background: var(--bg2); }
+  .interest-item .i-icon {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 16px;
+  }
+  .interest-item h4 {
+    font-family: var(--font-display); font-size: 1.3rem; font-weight: 300;
+    margin-bottom: 10px;
+  }
+  .interest-item p { font-size: 0.85rem; color: var(--fg-muted); line-height: 1.7; }
+
+  /* ── CONTACT ── */
+  #contact { padding: 120px 0; }
+  #contact .contact-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  #contact h2 {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 6vw, 90px);
+    font-weight: 300;
+    line-height: 1.0;
+  }
+  #contact h2 em { font-style: italic; color: var(--accent); }
+  #contact .contact-links { display: flex; flex-direction: column; gap: 20px; }
+  #contact .contact-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 0; border-bottom: 1px solid var(--rule);
+    text-decoration: none; color: var(--fg);
+    transition: border-color 0.2s;
+  }
+  #contact .contact-link:hover { border-color: var(--accent); }
+  #contact .contact-link .link-label {
+    font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--fg-muted);
+  }
+  #contact .contact-link .link-val {
+    font-family: var(--font-display); font-size: 1.1rem;
+  }
+  #contact .contact-link .arr { color: var(--fg-muted); transition: transform 0.2s; }
+  #contact .contact-link:hover .arr { transform: translate(4px, -4px); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 32px 48px;
+    border-top: 1px solid var(--rule);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  footer p { font-size: 0.72rem; letter-spacing: 0.1em; color: var(--fg-muted); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+  @keyframes lineDown {
+    0% { top: -100%; } 100% { top: 200%; }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.7s, transform 0.7s;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ── TWEAKS PANEL ── */
+  #tweaks-panel {
+    display: none;
+    position: fixed; bottom: 24px; right: 24px; z-index: 999;
+    background: #1a1a17; border: 1px solid var(--rule);
+    padding: 24px; width: 260px;
+    font-size: 0.8rem;
+  }
+  #tweaks-panel.active { display: block; }
+  #tweaks-panel h3 {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 20px;
+  }
+  .tweak-row { margin-bottom: 16px; }
+  .tweak-row label {
+    display: block; font-size: 0.7rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--fg-muted); margin-bottom: 6px;
+  }
+  .tweak-row select, .tweak-row input[type=color] {
+    width: 100%; background: var(--bg); border: 1px solid var(--rule);
+    color: var(--fg); padding: 6px 10px; font-size: 0.8rem;
+    font-family: var(--font-body); cursor: pointer;
+  }
+  .tweak-row input[type=color] { height: 36px; padding: 2px 6px; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#hero">[YOUR NAME]</a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <p class="eyebrow">[YOUR ROLE] &nbsp;·&nbsp; [YOUR LOCATION]</p>
+    <h1>[YOUR<br/><em>NAME</em>]</h1>
+    <div class="hero-sub">
+      <p class="hero-desc">
+        [Short one-to-two sentence intro — who you are, what you do, what drives you.]
+      </p>
+      <div class="hero-links">
+        <a href="#" target="_blank">GitHub ↗</a>
+        <a href="#" target="_blank">LinkedIn ↗</a>
+        <a href="[RESUME_URL]" target="_blank">Résumé ↗</a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="line"></div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <span class="section-label">About</span>
+      <div class="about-text reveal">
+        <h2>Student, builder,<br/><em>problem solver</em></h2>
+        <p>
+          [First paragraph — your background: where you study, your degree in Informatics, what motivated you to pursue it.]
+        </p>
+        <p>
+          [Second paragraph — your professional journey before university: industries, what you learned, how it shapes how you work today.]
+        </p>
+        <div class="chips">
+          <span class="chip">[Skill 1]</span>
+          <span class="chip">[Skill 2]</span>
+          <span class="chip">[Skill 3]</span>
+          <span class="chip">[Skill 4]</span>
+          <span class="chip">[Skill 5]</span>
+          <span class="chip">[Skill 6]</span>
+          <span class="chip">[Skill 7]</span>
+          <span class="chip">[Skill 8]</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Work Experience</h2>
+      <span class="count">[N] positions</span>
+    </div>
+    <div class="timeline">
+
+      <div class="timeline-item reveal">
+        <div class="timeline-left">
+          <p class="period">[YEAR] — [YEAR]</p>
+          <p class="company">[Company Name]</p>
+        </div>
+        <div class="timeline-right">
+          <p class="role">[Job Title]</p>
+          <p class="desc">[One or two sentences describing what you did and the impact you had.]</p>
+          <div class="tags">
+            <span class="tag">[Tech 1]</span>
+            <span class="tag">[Tech 2]</span>
+            <span class="tag">[Tech 3]</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal reveal-delay-1">
+        <div class="timeline-left">
+          <p class="period">[YEAR] — [YEAR]</p>
+          <p class="company">[Company Name]</p>
+        </div>
+        <div class="timeline-right">
+          <p class="role">[Job Title]</p>
+          <p class="desc">[One or two sentences describing what you did and the impact you had.]</p>
+          <div class="tags">
+            <span class="tag">[Tech 1]</span>
+            <span class="tag">[Tech 2]</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal reveal-delay-2">
+        <div class="timeline-left">
+          <p class="period">[YEAR] — [YEAR]</p>
+          <p class="company">[Company Name]</p>
+        </div>
+        <div class="timeline-right">
+          <p class="role">[Job Title]</p>
+          <p class="desc">[One or two sentences describing what you did and the impact you had.]</p>
+          <div class="tags">
+            <span class="tag">[Tech 1]</span>
+            <span class="tag">[Tech 2]</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Selected Projects</h2>
+      <span class="count">[N] projects</span>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card reveal">
+        <span class="num">01</span>
+        <h3>[Project Name]</h3>
+        <p>[One to two sentences describing the project: what it does, why you built it, what problem it solves.]</p>
+        <div class="proj-footer">
+          <span class="proj-type">[Type: Web App / CLI / ML / etc.]</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-1">
+        <span class="num">02</span>
+        <h3>[Project Name]</h3>
+        <p>[One to two sentences describing the project: what it does, why you built it, what problem it solves.]</p>
+        <div class="proj-footer">
+          <span class="proj-type">[Type]</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-2">
+        <span class="num">03</span>
+        <h3>[Project Name]</h3>
+        <p>[One to two sentences describing the project: what it does, why you built it, what problem it solves.]</p>
+        <div class="proj-footer">
+          <span class="proj-type">[Type]</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-1">
+        <span class="num">04</span>
+        <h3>[Project Name]</h3>
+        <p>[One to two sentences describing the project: what it does, why you built it, what problem it solves.]</p>
+        <div class="proj-footer">
+          <span class="proj-type">[Type]</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Skills & Stack</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <h4>Languages</h4>
+        <ul>
+          <li>[Language 1]</li>
+          <li>[Language 2]</li>
+          <li>[Language 3]</li>
+          <li>[Language 4]</li>
+        </ul>
+      </div>
+      <div class="skill-group reveal reveal-delay-1">
+        <h4>Frameworks & Tools</h4>
+        <ul>
+          <li>[Framework 1]</li>
+          <li>[Framework 2]</li>
+          <li>[Framework 3]</li>
+          <li>[Framework 4]</li>
+        </ul>
+      </div>
+      <div class="skill-group reveal reveal-delay-2">
+        <h4>Domains</h4>
+        <ul>
+          <li>[Domain 1]</li>
+          <li>[Domain 2]</li>
+          <li>[Domain 3]</li>
+          <li>[Domain 4]</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<!-- INTERESTS -->
+<section id="interests">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Interests</h2>
+    </div>
+    <div class="interests-row reveal">
+      <div class="interest-item">
+        <p class="i-icon">01</p>
+        <h4>[Interest 1]</h4>
+        <p>[One sentence on why this interest matters to you or how you pursue it.]</p>
+      </div>
+      <div class="interest-item">
+        <p class="i-icon">02</p>
+        <h4>[Interest 2]</h4>
+        <p>[One sentence on why this interest matters to you or how you pursue it.]</p>
+      </div>
+      <div class="interest-item">
+        <p class="i-icon">03</p>
+        <h4>[Interest 3]</h4>
+        <p>[One sentence on why this interest matters to you or how you pursue it.]</p>
+      </div>
+      <div class="interest-item">
+        <p class="i-icon">04</p>
+        <h4>[Interest 4]</h4>
+        <p>[One sentence on why this interest matters to you or how you pursue it.]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="reveal">
+        <h2>Let's<br/><em>Talk</em></h2>
+      </div>
+      <div class="contact-links reveal reveal-delay-1">
+        <a class="contact-link" href="/cdn-cgi/l/email-protection#d68d8f99838489939b979f9a8b">
+          <span class="link-label">Email</span>
+          <span class="link-val">[<span class="__cf_email__" data-cfemail="225b4d575062474f434b4e0c414d4f">[email&#160;protected]</span>]</span>
+          <span class="arr">↗</span>
+        </a>
+        <a class="contact-link" href="https://github.com/[USERNAME]" target="_blank">
+          <span class="link-label">GitHub</span>
+          <span class="link-val">@[username]</span>
+          <span class="arr">↗</span>
+        </a>
+        <a class="contact-link" href="https://linkedin.com/in/[USERNAME]" target="_blank">
+          <span class="link-label">LinkedIn</span>
+          <span class="link-val">[Your Name]</span>
+          <span class="arr">↗</span>
+        </a>
+        <a class="contact-link" href="[RESUME_URL]" target="_blank">
+          <span class="link-label">Résumé</span>
+          <span class="link-val">Download PDF</span>
+          <span class="arr">↓</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>[YOUR NAME] · [YEAR]</p>
+  <p>Designed & built with care.</p>
+</footer>
+
+<!-- TWEAKS PANEL -->
+<div id="tweaks-panel">
+  <h3>Tweaks</h3>
+  <div class="tweak-row">
+    <label>Accent Color</label>
+    <input type="color" id="tweak-accent" value="#c9a96e" />
+  </div>
+  <div class="tweak-row">
+    <label>Background</label>
+    <select id="tweak-bg">
+      <option value="#0d0d0b">Dark (default)</option>
+      <option value="#f5f2ec">Light / Cream</option>
+      <option value="#0d0e14">Cool Dark</option>
+    </select>
+  </div>
+  <div class="tweak-row">
+    <label>Display Font</label>
+    <select id="tweak-font">
+      <option value="'Cormorant Garamond', Georgia, serif">Cormorant (default)</option>
+      <option value="'Playfair Display', Georgia, serif">Playfair Display</option>
+      <option value="'DM Serif Display', Georgia, serif">DM Serif</option>
+    </select>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ── SCROLL REVEAL ──
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // ── TWEAKS ──
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "accent": "#b49864",
+    "bg": "#f5f2ec",
+    "font": "'Cormorant Garamond', Georgia, serif"
+  }/*EDITMODE-END*/;
+
+  function applyTweaks(t) {
+    const root = document.documentElement;
+    // Convert hex accent to CSS custom property
+    root.style.setProperty('--accent', t.accent);
+    root.style.setProperty('--bg', t.bg);
+    // Adjust fg for light bg
+    if (t.bg === '#f5f2ec') {
+      root.style.setProperty('--fg', '#1a1a14');
+      root.style.setProperty('--fg-muted', '#6b6860');
+      root.style.setProperty('--rule', '#dedad2');
+      root.style.setProperty('--bg2', '#ece9e2');
+    } else {
+      root.style.setProperty('--fg', '#ede9e0');
+      root.style.setProperty('--fg-muted', '#7a7770');
+      root.style.setProperty('--rule', '#2a2a26');
+      root.style.setProperty('--bg2', '#141412');
+    }
+    root.style.setProperty('--font-display', t.font);
+    document.getElementById('tweak-accent').value = t.accent;
+    document.getElementById('tweak-bg').value = t.bg;
+    document.getElementById('tweak-font').value = t.font;
+  }
+
+  applyTweaks(TWEAK_DEFAULTS);
+
+  document.getElementById('tweak-accent').addEventListener('input', e => {
+    const t = { ...TWEAK_DEFAULTS, accent: e.target.value };
+    applyTweaks(t);
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { accent: e.target.value } }, '*');
+  });
+  document.getElementById('tweak-bg').addEventListener('change', e => {
+    const t = { ...TWEAK_DEFAULTS, bg: e.target.value };
+    applyTweaks(t);
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { bg: e.target.value } }, '*');
+  });
+  document.getElementById('tweak-font').addEventListener('change', e => {
+    const t = { ...TWEAK_DEFAULTS, font: e.target.value };
+    applyTweaks(t);
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { font: e.target.value } }, '*');
+  });
+
+  // Register tweaks listener FIRST
+  window.addEventListener('message', e => {
+    if (e.data?.type === '__activate_edit_mode') document.getElementById('tweaks-panel').classList.add('active');
+    if (e.data?.type === '__deactivate_edit_mode') document.getElementById('tweaks-panel').classList.remove('active');
+  });
+  window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+
+  // ── LOAD GOOGLE FONT FOR TWEAKS ──
+  document.getElementById('tweak-font').addEventListener('change', e => {
+    const v = e.target.value;
+    if (v.includes('Playfair')) {
+      const l = document.createElement('link');
+      l.rel = 'stylesheet';
+      l.href = 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,300&display=swap';
+      document.head.appendChild(l);
+    }
+    if (v.includes('DM Serif')) {
+      const l = document.createElement('link');
+      l.rel = 'stylesheet';
+      l.href = 'https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap';
+      document.head.appendChild(l);
+    }
+  });
+</script>
+</body>
+</html>
