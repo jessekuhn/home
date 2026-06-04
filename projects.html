@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects – Jesse Kuhn</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .projects-body { padding: 80px 0 120px; }
+
+    .projects-intro {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 600px;
+      margin-bottom: 64px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: border-color 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .project-card:hover { border-color: var(--accent-dim); }
+    .project-card:hover::before { transform: scaleX(1); }
+
+    .project-category {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-dim);
+    }
+    .project-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .project-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.75;
+      flex-grow: 1;
+    }
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .project-tag {
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted-2);
+    }
+    .project-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: auto;
+    }
+    .status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--muted-2);
+    }
+    .status-dot.active { background: #5cb85c; box-shadow: 0 0 6px rgba(92,184,92,0.5); }
+
+    /* placeholder CTA */
+    .add-project-card {
+      border: 1px dashed var(--border);
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      text-align: center;
+      min-height: 240px;
+    }
+    .add-project-card p {
+      font-size: 0.82rem;
+      color: var(--muted-2);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 640px) {
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar" class="scrolled">
+    <a href="index.html" class="nav-logo">JK<span>.</span></a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cv.html">CV</a></li>
+      <li><a href="projects.html" class="active">Projects</a></li>
+      <li><a href="impressum.html">Impressum</a></li>
+      <li><a href="mailto:jessekuhn10@gmx.de" class="btn-primary" style="padding:10px 24px;">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="section-label animate-up">Projects &amp; Work</div>
+        <h1 class="animate-up delay-1">Things I've<br /><em>Built &amp; Done.</em></h1>
+        <p class="animate-up delay-2">
+          A selection of projects spanning IT security research, software development,
+          and academic work. More added as they progress.
+        </p>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="projects-body">
+
+        <div class="projects-grid">
+
+          <!-- Project 1 — DHBW IT Security Lectures -->
+          <div class="project-card animate-up">
+            <div class="project-category">Teaching · IT Security</div>
+            <div class="project-title">IT Security Lecture Series</div>
+            <div class="project-desc">
+              Designed and delivered a lecture series at DHBW Ravensburg covering real-world attack methods —
+              hardware hacking, social engineering, network exploitation — and corresponding defensive strategies
+              for a corporate environment. Additionally reviewing and grading bachelor theses in the IT field.
+            </div>
+            <div class="project-tags">
+              <span class="project-tag">Hardware Hacking</span>
+              <span class="project-tag">Social Engineering</span>
+              <span class="project-tag">Defence</span>
+            </div>
+            <div class="project-status">
+              <span class="status-dot active"></span> Ongoing since Apr 2024
+            </div>
+          </div>
+
+          <!-- Project 2 — ÖH FV SoWi -->
+          <div class="project-card animate-up delay-1">
+            <div class="project-category">Student Leadership · University</div>
+            <div class="project-title">Faculty Representation SoWi</div>
+            <div class="project-desc">
+              Planning, coordinating and managing the Faculty Representation for more than 4,000 students
+              at the SoWi campus of the University of Innsbruck. Actively driving changes in university
+              curricula, tutoring programmes and both internal and external events. Maintaining close
+              contact with professors, sponsors and other stakeholders.
+            </div>
+            <div class="project-tags">
+              <span class="project-tag">Project Management</span>
+              <span class="project-tag">Stakeholder Engagement</span>
+              <span class="project-tag">Event Organisation</span>
+            </div>
+            <div class="project-status">
+              <span class="status-dot active"></span> Active since Dec 2025
+            </div>
+          </div>
+
+          <!-- Project 3 — ABVI Head of IT -->
+          <div class="project-card animate-up delay-2">
+            <div class="project-category">Volunteering · Finance Club</div>
+            <div class="project-title">ABVI — Head of IT</div>
+            <div class="project-desc">
+              Elected board member at the Akademischer Börsenverein Innsbruck, responsible for
+              the IT infrastructure, digital tools and online presence of the student finance club.
+              Working with the board to organise events, foster education and grow the community.
+            </div>
+            <div class="project-tags">
+              <span class="project-tag">IT Infrastructure</span>
+              <span class="project-tag">Community Building</span>
+              <span class="project-tag">Finance</span>
+            </div>
+            <div class="project-status">
+              <span class="status-dot active"></span> Active since Jan 2026
+            </div>
+          </div>
+
+          <!-- Placeholder card -->
+          <div class="add-project-card animate-up delay-3">
+            <p>More projects coming soon.<br />Add your own below by editing <code>projects.html</code>.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-name">Jesse Kuhn</div>
+        <div class="footer-links">
+          <a href="cv.html">CV</a>
+          <a href="projects.html">Projects</a>
+          <a href="https://linkedin.com/in/jesse-kuhn-6731652b9" target="_blank">LinkedIn</a>
+          <a href="https://github.com/jessekuhn" target="_blank">GitHub</a>
+          <a href="impressum.html">Impressum</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    });
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

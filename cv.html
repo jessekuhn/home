@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV – Jesse Kuhn</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── CV LAYOUT ── */
+    .cv-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 80px;
+      padding: 80px 0 120px;
+    }
+
+    /* ── SIDEBAR ── */
+    .cv-sidebar {
+      position: sticky;
+      top: calc(var(--nav-h) + 32px);
+      height: fit-content;
+    }
+    .sidebar-section {
+      margin-bottom: 48px;
+    }
+    .sidebar-section:last-child { margin-bottom: 0; }
+    .sidebar-title {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .info-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .info-list li {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .info-list .label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted-2);
+    }
+    .info-list a,
+    .info-list span {
+      font-size: 0.85rem;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .info-list a:hover { color: var(--accent); }
+
+    /* skill bars */
+    .skill-bar-item { margin-bottom: 16px; }
+    .skill-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .skill-bar-label span:last-child {
+      font-size: 0.65rem;
+      color: var(--muted-2);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .skill-bar-bg {
+      height: 2px;
+      background: var(--border);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+    .skill-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 1px;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 1s ease 0.5s;
+    }
+    .skill-bar-fill.animate { transform: scaleX(1); }
+
+    /* lang */
+    .lang-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .lang-level {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-dim);
+    }
+
+    /* certs */
+    .cert-item {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .cert-item:last-child { border-bottom: none; }
+    .cert-name {
+      font-size: 0.82rem;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+    .cert-issuer {
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+    .cert-date {
+      font-size: 0.65rem;
+      color: var(--accent-dim);
+      margin-top: 2px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .cv-download {
+      display: block;
+      text-align: center;
+      padding: 14px;
+      border: 1px solid var(--border);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .cv-download:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── MAIN ── */
+    .cv-section { margin-bottom: 72px; }
+    .cv-section:last-child { margin-bottom: 0; }
+    .cv-section-title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 40px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .cv-section-title em { font-style: italic; color: var(--accent); }
+
+    .timeline { position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+    .timeline-entry {
+      padding-left: 32px;
+      padding-bottom: 48px;
+      position: relative;
+    }
+    .timeline-entry:last-child { padding-bottom: 0; }
+    .timeline-entry::before {
+      content: '';
+      position: absolute;
+      left: -4px; top: 8px;
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      background: var(--bg);
+    }
+    .entry-period {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .entry-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .entry-subtitle {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 14px;
+      font-style: italic;
+    }
+    .entry-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .entry-desc ul {
+      list-style: none;
+      margin-top: 8px;
+    }
+    .entry-desc ul li {
+      position: relative;
+      padding-left: 16px;
+      margin-bottom: 6px;
+    }
+    .entry-desc ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent-dim);
+    }
+    .entry-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .entry-tag {
+      padding: 4px 12px;
+      border: 1px solid var(--border);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted-2);
+    }
+
+    /* volunteering */
+    .vol-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .vol-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 24px;
+    }
+    .vol-card-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .vol-card-org {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+    .vol-card-period {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-dim);
+    }
+
+    @media (max-width: 900px) {
+      .cv-grid { grid-template-columns: 1fr; gap: 40px; padding: 60px 0; }
+      .cv-sidebar { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+      .vol-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .cv-sidebar { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar" class="scrolled">
+    <a href="index.html" class="nav-logo">JK<span>.</span></a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cv.html" class="active">CV</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="impressum.html">Impressum</a></li>
+      <li><a href="mailto:jessekuhn10@gmx.de" class="btn-primary" style="padding:10px 24px;">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="section-label animate-up">Curriculum Vitae</div>
+        <h1 class="animate-up delay-1">My <em>Journey</em><br />&amp; Experience.</h1>
+        <p class="animate-up delay-2">
+          From dual studies in IT Security to master's-level research — a full
+          overview of education, work, and the skills I bring to every challenge.
+        </p>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="cv-grid">
+
+        <!-- SIDEBAR -->
+        <aside class="cv-sidebar animate-up delay-1">
+
+          <div class="sidebar-section">
+            <div class="sidebar-title">Contact</div>
+            <ul class="info-list">
+              <li>
+                <span class="label">Email</span>
+                <a href="mailto:jessekuhn10@gmx.de">jessekuhn10@gmx.de</a>
+              </li>
+              <li>
+                <span class="label">Location</span>
+                <span>Innsbruck, Austria &amp; Southern Germany</span>
+              </li>
+              <li>
+                <span class="label">LinkedIn</span>
+                <a href="https://linkedin.com/in/jesse-kuhn-6731652b9" target="_blank">jesse-kuhn-6731652b9</a>
+              </li>
+              <li>
+                <span class="label">GitHub</span>
+                <a href="https://github.com/jessekuhn" target="_blank">jessekuhn</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="sidebar-title">Technical Skills</div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-label"><span>IT Security</span><span>Advanced</span></div>
+              <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="90%"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-label"><span>Active Directory</span><span>Advanced</span></div>
+              <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="85%"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-label"><span>Hardware Hacking</span><span>Advanced</span></div>
+              <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="80%"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-label"><span>Front-end Dev</span><span>Intermediate</span></div>
+              <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="70%"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-label"><span>Project Management</span><span>Intermediate</span></div>
+              <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="75%"></div></div>
+            </div>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="sidebar-title">Languages</div>
+            <div class="lang-item">
+              <span>German</span>
+              <span class="lang-level">Native</span>
+            </div>
+            <div class="lang-item">
+              <span>English</span>
+              <span class="lang-level">Fluent</span>
+            </div>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="sidebar-title">Certifications</div>
+            <div class="cert-item">
+              <div class="cert-name">Certified Finance Student (Bronze)</div>
+              <div class="cert-issuer">Bundesverband der Börsenvereine an deutschen Hochschulen (BVH) e.V.</div>
+              <div class="cert-date">Jan 2026</div>
+            </div>
+            <div class="cert-item">
+              <div class="cert-name">Google AI Essentials</div>
+              <div class="cert-issuer">Google</div>
+              <div class="cert-date">Feb 2025</div>
+            </div>
+          </div>
+
+          <div class="sidebar-section">
+            <a href="assets/CV_Jesse_Kuhn.pdf" download class="cv-download">↓ Download PDF</a>
+          </div>
+
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <div class="cv-main animate-up delay-2">
+
+          <!-- Education -->
+          <div class="cv-section">
+            <h2 class="cv-section-title">My <em>Education</em></h2>
+            <div class="timeline">
+
+              <div class="timeline-entry">
+                <div class="entry-period">Oct 2025 — Present</div>
+                <div class="entry-title">M.Sc. Information Systems</div>
+                <div class="entry-subtitle">Universität Innsbruck, Austria</div>
+                <div class="entry-desc">
+                  <p>Master's programme focused on the intersection of information technology, business processes and digital innovation.</p>
+                </div>
+                <div class="entry-tags">
+                  <span class="entry-tag">Information Systems</span>
+                  <span class="entry-tag">Digital Innovation</span>
+                </div>
+              </div>
+
+              <div class="timeline-entry">
+                <div class="entry-period">Mar 2025 — Present</div>
+                <div class="entry-title">B.Sc. International Business &amp; Economics</div>
+                <div class="entry-subtitle">Universität Innsbruck, Austria</div>
+                <div class="entry-desc">
+                  <p>Concurrent bachelor's programme broadening expertise with international business, economics and finance.</p>
+                </div>
+                <div class="entry-tags">
+                  <span class="entry-tag">Business</span>
+                  <span class="entry-tag">Economics</span>
+                  <span class="entry-tag">Finance</span>
+                </div>
+              </div>
+
+              <div class="timeline-entry">
+                <div class="entry-period">Oct 2020 — Sep 2023</div>
+                <div class="entry-title">B.Sc. Informatik — IT Security</div>
+                <div class="entry-subtitle">DHBW Ravensburg (Campus Friedrichshafen), Germany</div>
+                <div class="entry-desc">
+                  <p>Dual-study programme combining theoretical computer science with hands-on IT Security practice at Boehringer Ingelheim. Focus areas included network security, penetration testing, and enterprise security architecture.</p>
+                  <ul>
+                    <li>Dual partner: Boehringer Ingelheim, Biberach an der Riß</li>
+                    <li>Semester abroad (Apr–Sep 2022) at Ridgefield, Connecticut, USA as front-end developer</li>
+                  </ul>
+                </div>
+                <div class="entry-tags">
+                  <span class="entry-tag">IT Security</span>
+                  <span class="entry-tag">Dual Study</span>
+                  <span class="entry-tag">Cyber</span>
+                  <span class="entry-tag">Front-end</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Experience -->
+          <div class="cv-section">
+            <h2 class="cv-section-title">Work <em>Experience</em></h2>
+            <div class="timeline">
+
+              <div class="timeline-entry">
+                <div class="entry-period">Apr 2024 — Present</div>
+                <div class="entry-title">Lecturer &amp; Scientific Reviewer</div>
+                <div class="entry-subtitle">DHBW Ravensburg · Freelance · Friedrichshafen, Germany</div>
+                <div class="entry-desc">
+                  <p>Teaching attack methods in IT systems and defensive strategies in a corporate environment. Additionally grading and scientifically reviewing bachelor theses in the IT sector (since 2025).</p>
+                  <ul>
+                    <li>Lecture design and delivery: IT attack vectors, hardware hacking, social engineering</li>
+                    <li>Bachelor thesis reviewer and grader</li>
+                    <li>Guided dual students during a Microsoft Munich office visit</li>
+                  </ul>
+                </div>
+                <div class="entry-tags">
+                  <span class="entry-tag">Hardware Hacking</span>
+                  <span class="entry-tag">Social Engineering</span>
+                  <span class="entry-tag">Thesis Review</span>
+                  <span class="entry-tag">Teaching</span>
+                </div>
+              </div>
+
+              <div class="timeline-entry">
+                <div class="entry-period">Mar 2024 — May 2025</div>
+                <div class="entry-title">Student Coordinator</div>
+                <div class="entry-subtitle">Boehringer Ingelheim · Part-time · Biberach an der Riß, Germany</div>
+                <div class="entry-desc">
+                  <p>Coordinating dual IT students in finding suitable placements for their practical phases at Boehringer Ingelheim.</p>
+                  <ul>
+                    <li>Recruiting, marketing to and selecting new dual students</li>
+                    <li>Academic and practical guidance throughout university and work phases</li>
+                    <li>Running assessment centre processes</li>
+                  </ul>
+                </div>
+                <div class="entry-tags">
+                  <span class="entry-tag">Consulting</span>
+                  <span class="entry-tag">Assessment Centre</span>
+                  <span class="entry-tag">Recruiting</span>
+                </div>
+              </div>
+
+              <div class="timeline-entry">
+                <div class="entry-period">Oct 2023 — May 2025</div>
+                <div class="entry-title">Information Protection &amp; Security Officer</div>
+                <div class="entry-subtitle">Boehringer Ingelheim · Full-time · Biberach an der Riß, Germany (Hybrid)</div>
+                <div class="entry-desc">
+                  <p>Responsible for information risk management and security operations within the global pharmaceutical environment.</p>
+                </div>
+                <div class="entry-tags">
+                  <span class="entry-tag">Information Risk</span>
+                  <span class="entry-tag">Security Operations</span>
+                  <span class="entry-tag">English</span>
+                </div>
+              </div>
+
+              <div class="timeline-entry">
+                <div class="entry-period">Apr 2022 — Sep 2022</div>
+                <div class="entry-title">Semester Abroad — Front-End Developer</div>
+                <div class="entry-subtitle">Boehringer Ingelheim · Ridgefield, Connecticut, USA</div>
+                <div class="entry-desc">
+                  <p>Six-month international placement as a front-end developer, gaining hands-on experience in an English-speaking global corporate environment.</p>
+                </div>
+                <div class="entry-tags">
+                  <span class="entry-tag">Front-end Engineering</span>
+                  <span class="entry-tag">English</span>
+                  <span class="entry-tag">International</span>
+                </div>
+              </div>
+
+              <div class="timeline-entry">
+                <div class="entry-period">Oct 2020 — Sep 2023</div>
+                <div class="entry-title">Dual Student IT Security</div>
+                <div class="entry-subtitle">Boehringer Ingelheim · Full-time · Biberach an der Riß, Germany (Hybrid)</div>
+                <div class="entry-desc">
+                  <p>Three-year dual study position combining university education with practical IT Security experience in a global pharmaceutical company.</p>
+                  <ul>
+                    <li>Active Directory administration and security hardening</li>
+                    <li>Penetration testing and vulnerability assessment</li>
+                    <li>Cyber incident response involvement</li>
+                  </ul>
+                </div>
+                <div class="entry-tags">
+                  <span class="entry-tag">Active Directory</span>
+                  <span class="entry-tag">Cyber</span>
+                  <span class="entry-tag">Pen Testing</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Volunteering -->
+          <div class="cv-section">
+            <h2 class="cv-section-title">Student <em>Leadership</em></h2>
+            <div class="vol-grid">
+              <div class="vol-card">
+                <div class="vol-card-title">1. Deputy Chair, Faculty Representation SoWi</div>
+                <div class="vol-card-org">ÖH – Universität Innsbruck</div>
+                <div class="vol-card-period">Apr 2026 – Present</div>
+              </div>
+              <div class="vol-card">
+                <div class="vol-card-title">2. Deputy Chair, Faculty Representation SoWi</div>
+                <div class="vol-card-org">ÖH – Universität Innsbruck</div>
+                <div class="vol-card-period">Dec 2025 – Mar 2026</div>
+              </div>
+              <div class="vol-card">
+                <div class="vol-card-title">Head of IT</div>
+                <div class="vol-card-org">Akademischer Börsenverein Innsbruck (ABVI)</div>
+                <div class="vol-card-period">Jan 2026 – Present</div>
+              </div>
+              <div class="vol-card">
+                <div class="vol-card-title">Associate IT</div>
+                <div class="vol-card-org">Bundesverband der Börsenvereine an deutschen Hochschulen (BVH)</div>
+                <div class="vol-card-period">Oct 2025 – Present</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-name">Jesse Kuhn</div>
+        <div class="footer-links">
+          <a href="cv.html">CV</a>
+          <a href="projects.html">Projects</a>
+          <a href="https://linkedin.com/in/jesse-kuhn-6731652b9" target="_blank">LinkedIn</a>
+          <a href="https://github.com/jessekuhn" target="_blank">GitHub</a>
+          <a href="impressum.html">Impressum</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    });
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+    // Animate skill bars on scroll
+    const fills = document.querySelectorAll('.skill-bar-fill');
+    fills.forEach(el => el.style.width = el.dataset.width);
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('animate');
+      });
+    }, { threshold: 0.3 });
+    fills.forEach(f => observer.observe(f));
+  </script>
+</body>
+</html>
