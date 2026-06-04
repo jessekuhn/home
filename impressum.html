@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Impressum – Jesse Kuhn</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .impressum-body {
+      padding: 80px 0 120px;
+      max-width: 720px;
+    }
+    .imp-section {
+      margin-bottom: 56px;
+    }
+    .imp-section h2 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .imp-section h2 em { font-style: italic; color: var(--accent); }
+    .imp-section p,
+    .imp-section address {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.9;
+      font-style: normal;
+    }
+    .imp-section a {
+      color: var(--accent-dim);
+      transition: color 0.2s;
+    }
+    .imp-section a:hover { color: var(--accent); }
+    .imp-note {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent-dim);
+      padding: 20px 24px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 56px;
+    }
+
+    /* ADDRESS PLACEHOLDER — remove comment markers and fill in your address */
+    .address-placeholder {
+      background: var(--surface);
+      border: 1px dashed var(--accent-dim);
+      padding: 20px 24px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.9;
+      font-style: normal;
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar" class="scrolled">
+    <a href="index.html" class="nav-logo">JK<span>.</span></a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cv.html">CV</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="impressum.html" class="active">Impressum</a></li>
+      <li><a href="mailto:jessekuhn10@gmx.de" class="btn-primary" style="padding:10px 24px;">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="section-label animate-up">Legal Notice</div>
+        <h1 class="animate-up delay-1"><em>Impressum</em></h1>
+        <p class="animate-up delay-2">
+          Pflichtangaben gemäß § 5 TMG (Deutschland) und § 25 MedienG (Österreich).
+        </p>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="impressum-body animate-up delay-1">
+
+        <div class="imp-note">
+          This website is a private, non-commercial personal portfolio. It does not pursue any commercial
+          purpose. An Impressum is provided voluntarily and to comply with applicable German and Austrian
+          information obligations.
+        </div>
+
+        <!-- SECTION 1: Angaben gemäß § 5 TMG -->
+        <div class="imp-section">
+          <h2>Angaben gemäß <em>§ 5 TMG</em></h2>
+          <!--
+            ▼▼▼ REPLACE THIS BLOCK WITH YOUR REAL ADDRESS ▼▼▼
+            Remove the <address class="address-placeholder"> tags below and
+            replace with a plain <address> tag containing your real details.
+          -->
+          <address class="address-placeholder">
+            Jesse Kuhn<br />
+            [Straße und Hausnummer]<br />
+            [Postleitzahl] [Stadt]<br />
+            Deutschland
+          </address>
+          <!--
+            Example of what it should look like after you fill it in:
+            <address>
+              Jesse Kuhn<br />
+              Musterstraße 12<br />
+              88000 Musterstadt<br />
+              Deutschland
+            </address>
+          -->
+        </div>
+
+        <!-- SECTION 2: Kontakt -->
+        <div class="imp-section">
+          <h2><em>Kontakt</em></h2>
+          <address>
+            E-Mail: <a href="mailto:jessekuhn10@gmx.de">jessekuhn10@gmx.de</a>
+          </address>
+        </div>
+
+        <!-- SECTION 3: Verantwortlich für den Inhalt -->
+        <div class="imp-section">
+          <h2>Verantwortlich für den <em>Inhalt</em></h2>
+          <address class="address-placeholder">
+            Jesse Kuhn<br />
+            [Straße und Hausnummer]<br />
+            [Postleitzahl] [Stadt]<br />
+            Deutschland
+          </address>
+        </div>
+
+        <!-- SECTION 4: Haftungsausschluss -->
+        <div class="imp-section">
+          <h2>Haftungs<em>ausschluss</em></h2>
+          <p>
+            Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt.
+            Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine
+            Gewähr übernommen werden. Als privater Anbieter bin ich gemäß § 7 Abs. 1 TMG für
+            eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.
+          </p>
+          <br />
+          <p>
+            <strong style="color:var(--text);">Haftung für Links:</strong> Diese Website enthält
+            Links zu externen Websites Dritter, auf deren Inhalte ich keinen Einfluss habe.
+            Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber
+            der Seiten verantwortlich.
+          </p>
+        </div>
+
+        <!-- SECTION 5: Urheberrecht -->
+        <div class="imp-section">
+          <h2>Urheber<em>recht</em></h2>
+          <p>
+            Die durch den Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen
+            dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art
+            der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen
+            Zustimmung des jeweiligen Autors bzw. Erstellers.
+          </p>
+        </div>
+
+        <!-- SECTION 6: Datenschutz -->
+        <div class="imp-section">
+          <h2>Daten<em>schutz</em></h2>
+          <p>
+            Diese Website erhebt und speichert keine personenbezogenen Daten über Besucher.
+            Es werden keine Cookies gesetzt und keine Tracking-Technologien eingesetzt.
+            Beim Versenden einer E-Mail werden die von Ihnen übermittelten Daten ausschließlich
+            zur Beantwortung Ihrer Anfrage verwendet.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-name">Jesse Kuhn</div>
+        <div class="footer-links">
+          <a href="cv.html">CV</a>
+          <a href="projects.html">Projects</a>
+          <a href="https://linkedin.com/in/jesse-kuhn-6731652b9" target="_blank">LinkedIn</a>
+          <a href="https://github.com/jessekuhn" target="_blank">GitHub</a>
+          <a href="impressum.html">Impressum</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    });
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>
